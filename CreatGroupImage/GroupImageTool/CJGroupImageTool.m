@@ -36,6 +36,7 @@
                 }
                 if (!image){
                     image = [UIImage imageNamed:@"default"];
+                    NSLog(@"下载失败的图片地址：%@",request.URL);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [groupImages addObject:image];
@@ -83,9 +84,9 @@
 {
     self.backView = [[UIView alloc] init];
     self.backView.backgroundColor = [UIColor whiteColor];
-    self.backView.layer.borderWidth = 1;
+    self.backView.layer.borderWidth = 0.5;
     self.backView.layer.masksToBounds = YES;
-    self.backView.layer.borderColor = [UIColor grayColor].CGColor;
+    self.backView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.backView.frame = CGRectMake(0, 0, 140, 140);
     switch (imageArray.count) {
         case 2:
@@ -254,7 +255,7 @@
             [self.backView addSubview:imageV8];
         }
             break;
-        case 9:
+        default:
         {
             UIImageView *imageV1 = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 40, 40)];
             imageV1.image = imageArray[0];
@@ -293,8 +294,6 @@
             [self.backView addSubview:imageV8];
             [self.backView addSubview:imageV9];
         }
-            break;
-        default:
             break;
     }
     
