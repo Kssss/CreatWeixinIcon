@@ -25,26 +25,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadSubView];
     [self.navigationItem setPrompt:@"点击屏幕开始"];
  }
 - (void)loadSubView
 {
-    self.imageV = [[UIImageView  alloc] initWithFrame:CGRectMake(40, 100, 140, 140)];
+    self.imageV = [[UIImageView  alloc] initWithFrame:CGRectMake(40, 100, 100, 100)];
     [self.view addSubview:self.imageV];
-    self.imageV2 = [[UIImageView  alloc] initWithFrame:CGRectMake(180, 100, 140, 140)];
+    self.imageV2 = [[UIImageView  alloc] initWithFrame:CGRectMake(180, 100, 100, 100)];
     [self.view addSubview:self.imageV2];
-    self.imageV3 = [[UIImageView  alloc] initWithFrame:CGRectMake(40,240 ,140, 140)];
+    self.imageV3 = [[UIImageView  alloc] initWithFrame:CGRectMake(40,240 ,100, 100)];
     [self.view addSubview:self.imageV3];
-    self.imageV4 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 240, 140, 140)];
+    self.imageV4 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 240, 100, 100)];
     [self.view addSubview:self.imageV4];
-    self.imageV5 = [[UIImageView alloc] initWithFrame:CGRectMake(40, 380, 140, 140)];
+    self.imageV5 = [[UIImageView alloc] initWithFrame:CGRectMake(40, 380, 100, 100)];
     [self.view addSubview:self.imageV5];
-    self.imageV6 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 380, 140, 140)];
+    self.imageV6 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 380, 100, 100)];
     [self.view addSubview:self.imageV6];
-    self.imageV7 = [[UIImageView alloc] initWithFrame:CGRectMake(40, 520, 140, 140)];
+    self.imageV7 = [[UIImageView alloc] initWithFrame:CGRectMake(40, 520, 100, 100)];
     [self.view addSubview:self.imageV7];
-    self.imageV8 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 520, 140, 140)];
+    self.imageV8 = [[UIImageView alloc] initWithFrame:CGRectMake(180, 520, 100, 100)];
     [self.view addSubview:self.imageV8];
     
     
@@ -55,8 +54,14 @@
 // 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
-
+    __block NSMutableArray *array = [NSMutableArray array];
+    [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [array addObject:obj];
+    }];
+    [array enumerateObjectsUsingBlock:^(UIView  * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
+    [self loadSubView];
     NSMutableArray *urlStr = @[@"http://v1.qzone.cc/avatar/201503/15/13/08/550513b64bcbf041.jpg%21200x200.jpg",
                                @"http://img2.jfdown.com/upload/2/e9a65b00-b782-476e-933e-82d3a7ffd6fa.jpg",
                                @"http://tupian.qqjay.com/tou2/2016/0804/20cfec7259143037b09641a814e3f0c3.jpg",
