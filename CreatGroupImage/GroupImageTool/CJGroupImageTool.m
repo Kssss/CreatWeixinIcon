@@ -9,7 +9,6 @@
 #import "CJGroupImageTool.h"
 @interface CJGroupImageTool ()
 @property (strong, nonatomic)  UIView *backView;
-@property (strong, nonatomic)  UIImageView *groupImage;
 
 @end
 @implementation CJGroupImageTool
@@ -52,6 +51,7 @@
         dispatch_semaphore_wait(disp, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             [tool loadSubView:groupImages];
+            UIImage *image = groupImages[1];
             if (imageHandle) {
                 imageHandle([tool creatGroupImage]);
             }
@@ -300,18 +300,18 @@
 
 }
 - (UIImage *)creatGroupImage{
+    //1、开启上下文
+    UIGraphicsBeginImageContext(self.backView.bounds.size);
     
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(280 , 280), YES, 0);
-    [[self.backView layer] renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    CGImageRef imageRef = viewImage.CGImage;
-    CGRect rect = CGRectMake(0, 0, 280, 280);
-    CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
+    //2.获取当前上下文
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
+    //3.截屏
+    [self.backView.layer renderInContext:ctx];
     
-    return sendImage;
+    //4、获取新图片
+    UIImage * newImage = UIGraphicsGetImageFromCurrentImageContext();
     
+    return newImage;
 }
 @end
